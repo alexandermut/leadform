@@ -410,6 +410,32 @@ input:focus, textarea:focus, select:focus {
     display: none !important;
 }
 
+/* Legal Footer */
+.legal-footer {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.legal-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin: 0 8px;
+    transition: color 0.2s;
+}
+
+.legal-footer a:hover {
+    color: var(--text-main);
+    text-decoration: underline;
+}
+
+.separator-dot {
+    opacity: 0.5;
+}
+
 /* Buttons */
 .actions-bar {
     display: flex;

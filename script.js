@@ -78,7 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3. Storage Logic ---
     function loadSettings() {
-        salesEmailInput.value = localStorage.getItem('salesEmail') || '';
+        // Default to alexander.mut@abcfinance.de if nothing is stored
+        salesEmailInput.value = localStorage.getItem('salesEmail') || 'alexander.mut@abcfinance.de';
         assistantEmailInput.value = localStorage.getItem('assistantEmail') || '';
     }
 
@@ -202,38 +203,37 @@ document.addEventListener('DOMContentLoaded', () => {
             data.timestamp
         ].filter(Boolean).join(' | ');
         
-        // Body
-        let body = `LEAD ERFASSUNG - ${data.event || 'Kein Event'}%0D%0A`;
-        body += `----------------------------------------%0D%0A`;
-        body += `Datum: ${data.timestamp}%0D%0A%0D%0A`;
+        // Body construction using standard newlines
+        let body = `LEAD ERFASSUNG - ${data.event || 'Kein Event'}\n`;
+        body += `----------------------------------------\n`;
+        body += `Datum: ${data.timestamp}\n\n`;
         
-        body += `KONTAKT:%0D%0A`;
-        body += `Name: ${data.firstname} ${data.lastname}%0D%0A`;
-        body += `Firma: ${data.company}%0D%0A`;
-        body += `Position: ${data.position || '-'}%0D%0A`;
-        body += `Adresse: ${data.street || ''} ${data.zip || ''} ${data.city || ''}%0D%0A`;
-        body += `Web: ${data.website || '-' }%0D%0A`;
-        body += `E-Mail: ${data.email}%0D%0A`;
-        body += `Tel: ${data.phone || '-'}%0D%0A%0D%0A`;
+        body += `KONTAKT:\n`;
+        body += `Name: ${data.firstname} ${data.lastname}\n`;
+        body += `Firma: ${data.company}\n`;
+        body += `Position: ${data.position || '-'}\n`;
+        body += `Adresse: ${data.street || ''} ${data.zip || ''} ${data.city || ''}\n`;
+        body += `Web: ${data.website || '-' }\n`;
+        body += `E-Mail: ${data.email}\n`;
+        body += `Tel: ${data.phone || '-'}\n\n`;
         
-        body += `INTERESSE:%0D%0A`;
-        body += (interestValue || 'Keine') + `%0D%0A%0D%0A`;
+        body += `INTERESSE:\n`;
+        body += (interestValue || 'Keine') + `\n\n`;
         
-        body += `DETAILS:%0D%0A`;
-        body += `Volumen: ${data.amount || '-'}%0D%0A`;
-        body += `Zeitraum: ${data.timeline || '-'}%0D%0A%0D%0A`;
+        body += `DETAILS:\n`;
+        body += `Volumen: ${data.amount || '-'}\n`;
+        body += `Zeitraum: ${data.timeline || '-'}\n\n`;
         
-        body += `NACHRICHT:%0D%0A`;
-        body += (data.message || '-').replace(/\n/g, '%0D%0A');
+        body += `NACHRICHT:\n`;
+        body += (data.message || '-');
         
-        body += `%0D%0A%0D%0A----------------------------------------%0D%0A`;
+        body += `\n\n----------------------------------------\n`;
         body += `DSGVO Zustimmung: ${gdprChecked ? 'JA' : 'NEIN'}`;
         
-        // Note: Cannot attach photo via mailto.
-
-        // Open Mailto
-        const safeBody = encodeURIComponent(decodeURIComponent(body));
-        window.location.href = `mailto:${recipients}?cc=${cc}&subject=${encodeURIComponent(subjectParts)}&body=${safeBody}`;
+        // Open Mailto - encodeURIComponent handles all special chars correctly
+        const mailtoLink = `mailto:${recipients}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subjectParts)}&body=${encodeURIComponent(body)}`;
+        
+        window.location.href = mailtoLink;
 
         showStatus(`Lead vorbereitet! Versandzeit: ${data.timestamp}`, 'success');
     }

@@ -26,13 +26,13 @@
                 
                 <div class="photo-container" id="photoContainer">
                     <!-- Hidden File Input -->
-                    <input type="file" id="photoInput" accept="image/*" capture="environment">
+                    <input type="file" id="photoInput" accept="image/*" capture="environment" aria-label="Visitenkarte fotografieren oder hochladen">
                     
                     <!-- Upload Placeholder / Button -->
                     <label for="photoInput" class="photo-upload-label" id="photoLabel">
                         <div class="icon-circle">
                             <!-- SVG Camera Icon -->
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                                 <circle cx="12" cy="13" r="4"></circle>
                             </svg>
@@ -43,8 +43,8 @@
 
                     <!-- Preview Image (Overlay) -->
                     <div id="photoPreviewOverlay" class="photo-preview-overlay hidden">
-                        <img id="photoPreviewImg" src="" alt="Visitenkarte Vorschau">
-                        <button type="button" id="btnRemovePhoto" class="btn-remove-floating" title="Foto entfernen">✕</button>
+                        <img id="photoPreviewImg" src="" alt="Vorschau der aufgenommenen Visitenkarte">
+                        <button type="button" id="btnRemovePhoto" class="btn-remove-floating" title="Foto entfernen" aria-label="Foto entfernen">✕</button>
                     </div>
                 </div>
             </div>
@@ -193,6 +193,13 @@
             <button id="btnSend" class="btn btn-primary">
                 <span class="icon">✉️</span> Daten absenden
             </button>
+
+            <!-- Legal Footer -->
+            <footer class="legal-footer">
+                <a href="https://alexandermut.github.io/kontaktdaten_vcard_alexander_mut/impressum.html" target="_blank">Impressum</a>
+                <span class="separator-dot">•</span>
+                <a href="https://alexandermut.github.io/kontaktdaten_vcard_alexander_mut/datenschutz.html" target="_blank">Datenschutz</a>
+            </footer>
         </div>
 
     </div>
