@@ -1,0 +1,5 @@
+{
+  "name": "Lead Erfassungs App",
+  "description": "Offline-fähige Web-App zur Leaderfassung auf Messen im Dark Mode mit automatischer E-Mail-Generierung.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lead Erfassung</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header with Live Date/Time -->
+        <header class="app-header">
+            <div class="header-row">
+                <span class="header-label">Kontakt erfasst am:</span>
+                <span class="header-live-date" id="liveDateTime">--.--.---- --:--:--</span>
+            </div>
+        </header>
+
+        <!-- Lead Form -->
+        <section class="card lead-card">
+            
+            <!-- Optimized Photo Capture -->
+            <div class="input-wrapper photo-wrapper" data-field="photo">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-photo" title="Auto-Löschen" checked>
+                
+                <div class="photo-container" id="photoContainer">
+                    <!-- Hidden File Input -->
+                    <input type="file" id="photoInput" accept="image/*" capture="environment">
+                    
+                    <!-- Upload Placeholder / Button -->
+                    <label for="photoInput" class="photo-upload-label" id="photoLabel">
+                        <div class="icon-circle">
+                            <!-- SVG Camera Icon -->
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                <circle cx="12" cy="13" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span class="photo-text">Visitenkarte scannen</span>
+                        <span class="photo-subtext">Tippen zum Aufnehmen</span>
+                    </label>
+
+                    <!-- Preview Image (Overlay) -->
+                    <div id="photoPreviewOverlay" class="photo-preview-overlay hidden">
+                        <img id="photoPreviewImg" src="" alt="Visitenkarte Vorschau">
+                        <button type="button" id="btnRemovePhoto" class="btn-remove-floating" title="Foto entfernen">✕</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Messe / Event -->
+            <div class="input-wrapper" data-field="event">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-event" title="Auto-Löschen">
+                <input type="text" id="event" placeholder="Messe / Event" autocomplete="off">
+            </div>
+
+            <!-- 2. Vorname -->
+            <div class="input-wrapper" data-field="firstname">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-firstname" title="Auto-Löschen">
+                <input type="text" id="firstname" placeholder="Vorname" autocomplete="off">
+            </div>
+
+            <!-- 3. Nachname -->
+            <div class="input-wrapper" data-field="lastname">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-lastname" title="Auto-Löschen">
+                <input type="text" id="lastname" placeholder="Nachname" autocomplete="off">
+            </div>
+
+            <!-- 4. Firma -->
+            <div class="input-wrapper" data-field="company">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-company" title="Auto-Löschen">
+                <input type="text" id="company" placeholder="Firma" autocomplete="off">
+            </div>
+
+            <!-- New: Position -->
+            <div class="input-wrapper" data-field="position">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-position" title="Auto-Löschen">
+                <input type="text" id="position" placeholder="Position" autocomplete="off">
+            </div>
+
+            <!-- New: Strasse -->
+            <div class="input-wrapper" data-field="street">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-street" title="Auto-Löschen">
+                <input type="text" id="street" placeholder="Strasse" autocomplete="off">
+            </div>
+
+            <!-- New: PLZ -->
+            <div class="input-wrapper" data-field="zip">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-zip" title="Auto-Löschen">
+                <input type="text" id="zip" placeholder="Postleitzahl" inputmode="numeric" autocomplete="off">
+            </div>
+
+            <!-- New: Ort -->
+            <div class="input-wrapper" data-field="city">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-city" title="Auto-Löschen">
+                <input type="text" id="city" placeholder="Ort" autocomplete="off">
+            </div>
+
+            <!-- New: Webseite -->
+            <div class="input-wrapper" data-field="website">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-website" title="Auto-Löschen">
+                <input type="text" id="website" placeholder="Webseite (www...)" autocomplete="off">
+            </div>
+
+            <!-- 5. E-Mail Kunde -->
+            <div class="input-wrapper" data-field="customerEmail">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-customerEmail" title="Auto-Löschen">
+                <input type="email" id="customerEmail" placeholder="E-Mail Kunde" autocomplete="off">
+            </div>
+
+            <!-- 6. Telefon -->
+            <div class="input-wrapper" data-field="phone">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-phone" title="Auto-Löschen">
+                <input type="tel" id="phone" placeholder="Telefon / Mobil" autocomplete="off">
+            </div>
+
+            <!-- 7. Interessen (Dropdown) -->
+            <div class="input-wrapper" data-field="interests">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-interests" title="Auto-Löschen">
+                <select id="interests">
+                    <option value="Investition" selected>Investition</option>
+                    <option value="Factoring">Factoring</option>
+                    <option value="Absatzfinanzierung">Absatzfinanzierung</option>
+                    <option value="Sonstiges">Sonstiges</option>
+                </select>
+            </div>
+
+            <!-- 8. Investitionsbetrag -->
+            <div class="input-wrapper" data-field="amount">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-amount" title="Auto-Löschen">
+                <input type="text" id="amount" placeholder="Investitionsvolumen (€)" inputmode="decimal" autocomplete="off">
+            </div>
+
+            <!-- 9. Zeithorizont -->
+            <div class="input-wrapper" data-field="timeline">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-timeline" title="Auto-Löschen">
+                <select id="timeline">
+                    <option value="" disabled selected>Zeithorizont wählen...</option>
+                    <option value="Sofort">Sofort</option>
+                    <option value="Q1">Q1</option>
+                    <option value="Q2">Q2</option>
+                    <option value="Q3">Q3</option>
+                    <option value="Q4">Q4</option>
+                    <option value="Nächstes Jahr">Nächstes Jahr</option>
+                </select>
+            </div>
+
+            <!-- 10. Nachricht -->
+            <div class="input-wrapper" data-field="message">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-message" title="Auto-Löschen">
+                <textarea id="message" rows="4" placeholder="Nachricht / Notizen / Bedarf..." autocomplete="off"></textarea>
+            </div>
+
+             <!-- 11. DSGVO -->
+             <div class="input-wrapper group-wrapper" data-field="gdpr">
+                <div class="group-header">
+                    <input type="checkbox" class="partial-clear-toggle" id="toggle-gdpr" title="Auto-Löschen">
+                    <label class="check-box big-check">
+                        <input type="checkbox" id="gdpr">
+                        <span>DSGVO Zustimmung erteilt</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Separator for internal emails -->
+            <div class="separator"></div>
+
+            <!-- Internal Settings (Sales/Assistant) Moved Here -->
+            <div class="input-wrapper" data-field="salesEmail">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-salesEmail" title="Auto-Löschen">
+                <input type="email" id="salesEmail" placeholder="Vertrieb E-Mail (An:)" autocomplete="off">
+            </div>
+            
+            <div class="input-wrapper" data-field="assistantEmail">
+                <input type="checkbox" class="partial-clear-toggle" id="toggle-assistantEmail" title="Auto-Löschen">
+                <input type="email" id="assistantEmail" placeholder="Assistenz E-Mail (An:)" autocomplete="off">
+            </div>
+
+        </section>
+
+        <!-- Errors & Status -->
+        <div id="statusMessage" class="status-message hidden"></div>
+
+        <!-- Actions -->
+        <div class="actions-bar">
+            <button id="btnFullClear" class="btn btn-danger">
+                Alles leeren
+            </button>
+            <button id="btnPartialClear" class="btn btn-warning">
+                Alles ohne x leeren
+            </button>
+            <button id="btnSend" class="btn btn-primary">
+                <span class="icon">✉️</span> Daten absenden
+            </button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
