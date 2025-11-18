@@ -234,10 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const interestValue = document.getElementById('interests').value;
         const gdprChecked = document.getElementById('gdpr').checked;
+        const ccCustomerChecked = document.getElementById('ccCustomer').checked;
 
         // Construct Email
         const recipients = [salesEmailInput.value, assistantEmailInput.value].filter(Boolean).join(',');
-        const cc = data.email; 
+        // Add customer to CC only if checkbox is checked
+        const cc = ccCustomerChecked ? data.email : ''; 
         
         // Subject
         const subjectParts = [
@@ -365,6 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('gdpr').checked = false;
         }
 
+        // CC Customer
+        const ccToggle = document.getElementById('toggle-ccCustomer');
+        if (ccToggle && ccToggle.checked) {
+            document.getElementById('ccCustomer').checked = true; // Reset to default 'true'
+        }
+
         showStatus('Formular teilweise bereinigt.', 'warning');
     }
 
@@ -396,6 +404,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear all checkboxes except toggles
         const checkboxes = document.querySelectorAll('.lead-card input[type="checkbox"]:not(.partial-clear-toggle)');
         checkboxes.forEach(cb => cb.checked = false);
+        
+        // Reset CC Customer to TRUE (Default for new lead)
+        const ccCheckbox = document.getElementById('ccCustomer');
+        if(ccCheckbox) ccCheckbox.checked = true;
 
         showStatus('Formular geleert.', 'error');
     }

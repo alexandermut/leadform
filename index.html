@@ -100,7 +100,7 @@
             <!-- New: Webseite -->
             <div class="input-wrapper" data-field="website">
                 <input type="checkbox" class="partial-clear-toggle" id="toggle-website" title="Auto-Löschen">
-                <input type="text" id="website" placeholder="Webseite (www...)" autocomplete="off">
+                <input type="text" id="website" placeholder="Webseite" autocomplete="off">
             </div>
 
             <!-- 5. E-Mail Kunde -->
@@ -175,6 +175,17 @@
             <div class="input-wrapper" data-field="assistantEmail">
                 <input type="checkbox" class="partial-clear-toggle" id="toggle-assistantEmail" title="Auto-Löschen">
                 <input type="email" id="assistantEmail" placeholder="Assistenz E-Mail (An:)" autocomplete="off">
+            </div>
+
+            <!-- New: CC Checkbox (Moved to bottom) -->
+            <div class="input-wrapper group-wrapper" data-field="ccCustomer">
+                <div class="group-header">
+                    <input type="checkbox" class="partial-clear-toggle" id="toggle-ccCustomer" title="Auto-Löschen">
+                    <label class="check-box big-check">
+                        <input type="checkbox" id="ccCustomer" checked>
+                        <span>Kunde in CC setzen</span>
+                    </label>
+                </div>
             </div>
 
         </section>
