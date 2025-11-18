@@ -36,7 +36,7 @@ body {
     background-attachment: fixed;
     color: var(--text-main);
     min-height: 100vh;
-    padding-bottom: 160px; /* Increased for sticky footer */
+    padding-bottom: 140px; /* Adjusted for new compact footer */
 }
 
 .app-container {
@@ -260,18 +260,24 @@ input[type="tel"],
 textarea,
 select {
     width: 100%;
-    padding: 14px 14px;
+    padding: 10px 12px; /* Reduced vertical padding for tighter look */
     padding-left: 54px; /* Space for the toggle on the left */
-    padding-right: 14px; /* Back to standard padding */
+    padding-right: 12px; 
     background: var(--input-bg);
     border: 1px solid var(--input-border);
     border-radius: 10px;
     color: var(--text-main);
-    font-size: 1rem;
+    font-size: 1.2rem; /* Increased font size */
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     display: block;
     min-width: 0; /* Fix for flexbox overflow issues */
+}
+
+/* Ensure placeholder also inherits or has specific style if needed */
+::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.2rem;
 }
 
 textarea {
@@ -298,6 +304,8 @@ input:focus, textarea:focus, select:focus {
     /* Absolute positioning inside input wrapper */
     position: absolute;
     left: 4px;
+    top: 50%; /* Vertically centered */
+    transform: translateY(-50%);
     z-index: 20; /* Ensure above photo overlay */
     margin: 0;
     transition: background-color 0.3s;
@@ -305,12 +313,14 @@ input:focus, textarea:focus, select:focus {
 
 /* Positioning for textarea */
 .input-wrapper:has(textarea) .partial-clear-toggle {
-    top: 14px; /* Align with top padding of textarea */
+    top: 12px; /* Align with top padding of textarea */
+    transform: none;
 }
 
 /* Positioning for Photo Wrapper */
 .photo-wrapper .partial-clear-toggle {
     top: 20px; /* Align somewhat with the card top */
+    transform: none;
 }
 
 /* Positioning for Groups (GDPR) */
@@ -318,6 +328,7 @@ input:focus, textarea:focus, select:focus {
     position: relative;
     left: auto;
     top: auto;
+    transform: none;
     flex-shrink: 0;
 }
 
@@ -415,10 +426,10 @@ input:focus, textarea:focus, select:focus {
 /* Legal Footer */
 .legal-footer {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    font-size: 0.8rem;
+    margin-top: 4px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
@@ -438,29 +449,36 @@ input:focus, textarea:focus, select:focus {
     opacity: 0.5;
 }
 
-/* Buttons */
+/* Actions Bar - Compact */
 .actions-bar {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px; /* Reduced gap */
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 100;
     width: 100%;
-    background: rgba(5, 5, 16, 0.85);
+    background: rgba(5, 5, 16, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 16px;
+    padding: 12px 16px; /* Reduced vertical padding */
     border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Secondary actions container for side-by-side buttons */
+.secondary-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
 }
 
 .btn {
     border: none;
-    border-radius: 14px;
-    padding: 16px;
-    font-size: 1rem;
+    border-radius: 12px; /* Slightly smaller radius */
+    padding: 12px; /* Reduced from 16px */
+    font-size: 1rem; /* Reduced from 1.1rem */
     font-weight: 700;
     cursor: pointer;
     color: #fff;
@@ -469,9 +487,16 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     transition: transform 0.1s, filter 0.2s;
     width: 100%;
-    display: block; /* Ensure full width block */
+    display: block; 
     position: relative;
     overflow: hidden;
+}
+
+/* Specific small text size for secondary buttons to fit side-by-side */
+.btn-small {
+    font-size: 0.8rem;
+    padding: 12px 8px;
+    line-height: 1.2;
 }
 
 .btn:active {
@@ -480,7 +505,7 @@ input:focus, textarea:focus, select:focus {
 
 .btn-primary {
     background: linear-gradient(135deg, var(--primary-color), #8e86ff);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
 .btn-warning {

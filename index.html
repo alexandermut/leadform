@@ -184,15 +184,20 @@
 
         <!-- Actions -->
         <div class="actions-bar">
-            <button id="btnFullClear" class="btn btn-danger">
-                Alles leeren
-            </button>
-            <button id="btnPartialClear" class="btn btn-warning">
-                markierte Felder leeren
-            </button>
+            <!-- 1. Absenden -->
             <button id="btnSend" class="btn btn-primary">
                 <span class="icon">✉️</span> Daten absenden
             </button>
+
+            <!-- 2. & 3. Leeren (Nebeneinander) -->
+            <div class="secondary-actions">
+                <button id="btnPartialClear" class="btn btn-warning btn-small">
+                    markierte Felder leeren
+                </button>
+                <button id="btnFullClear" class="btn btn-danger btn-small">
+                    Alles leeren
+                </button>
+            </div>
 
             <!-- Legal Footer -->
             <footer class="legal-footer">
