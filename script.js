@@ -185,12 +185,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 6. Send Lead Logic ---
-    function handleSendLead() {
+    // Now async to handle clipboard operations
+    async function handleSendLead() {
         // Validation: Only internal emails required for functionality
         if (!salesEmailInput.value && !assistantEmailInput.value) {
             alert('Fehler: Bitte mindestens eine interne E-Mail-Adresse (Vertrieb oder Assistenz) angeben.');
             return;
         }
+
+        // --- WORKAROUND: Copy Image to Clipboard ---
+        let imageNote = "";
+        const hasPhoto = photoContainer.classList.contains('has-image') && photoPreviewImg.src;
+        
+        if (hasPhoto) {
+            try {
+                await copyImageToClipboard(photoPreviewImg);
+                imageNote = "\n\n>>> FOTO HIER EINFÜGEN (Foto liegt in der Zwischenablage) <<<";
+                // Use alert to pause execution so user sees the message before mail client opens
+                alert("📸 Foto kopiert!\n\nDas Foto der Visitenkarte befindet sich in der Zwischenablage.\n\nBitte in der E-Mail 'Einfügen' wählen (lange tippen).");
+            } catch (err) {
+                console.error("Clipboard failed", err);
+                showStatus("Foto konnte nicht kopiert werden (Browser-Einschränkung).", "error");
+            }
+        }
+        // --------------------------------------------
 
         // Capture timestamp at the moment of sending
         const currentTimestamp = getFormattedTimestamp();
@@ -255,6 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
         body += `NACHRICHT:\n`;
         body += (data.message || '-');
         
+        body += imageNote; // Append the note about the image
+        
         body += `\n\n----------------------------------------\n`;
         body += `DSGVO Zustimmung: ${gdprChecked ? 'JA' : 'NEIN'}`;
         
@@ -264,6 +284,28 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = mailtoLink;
 
         showStatus(`Lead vorbereitet! Versandzeit: ${data.timestamp}`, 'success');
+    }
+
+    // Helper function to copy image blob to clipboard
+    function copyImageToClipboard(imgElement) {
+        // Draw image to a canvas to get the blob data
+        const canvas = document.createElement('canvas');
+        canvas.width = imgElement.naturalWidth;
+        canvas.height = imgElement.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(imgElement, 0, 0);
+
+        return new Promise((resolve, reject) => {
+            canvas.toBlob(blob => {
+                if (!blob) return reject('Canvas to Blob failed');
+                try {
+                    const item = new ClipboardItem({ 'image/png': blob });
+                    navigator.clipboard.write([item]).then(resolve).catch(reject);
+                } catch (err) {
+                    reject(err);
+                }
+            }, 'image/png');
+        });
     }
 
     // --- 7. Clear Logic ---
